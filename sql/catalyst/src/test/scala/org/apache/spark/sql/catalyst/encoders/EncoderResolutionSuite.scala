@@ -17,8 +17,9 @@
 
 package org.apache.spark.sql.catalyst.encoders
 
-import scala.reflect.runtime.universe.TypeTag
+import org.apache.spark.SparkFunSuite
 
+import scala.reflect.runtime.universe.TypeTag
 import org.apache.spark.sql.AnalysisException
 import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.dsl.expressions._
@@ -39,7 +40,7 @@ case class ArrayClass(arr: Seq[StringIntClass])
 
 case class NestedArrayClass(nestedArr: Array[ArrayClass])
 
-class EncoderResolutionSuite extends PlanTest {
+class EncoderResolutionSuite extends SparkFunSuite with PlanTest {
   private val str = UTF8String.fromString("hello")
 
   test("real type doesn't match encoder schema but they are compatible: product") {

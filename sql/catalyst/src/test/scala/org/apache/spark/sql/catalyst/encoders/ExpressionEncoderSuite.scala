@@ -21,9 +21,10 @@ import java.math.BigInteger
 import java.sql.{Date, Timestamp}
 import java.util.Arrays
 
+import org.apache.spark.SparkFunSuite
+
 import scala.collection.mutable.ArrayBuffer
 import scala.reflect.runtime.universe.TypeTag
-
 import org.apache.spark.sql.{Encoder, Encoders}
 import org.apache.spark.sql.catalyst.{OptionalData, PrimitiveData}
 import org.apache.spark.sql.catalyst.analysis.AnalysisTest
@@ -111,7 +112,7 @@ object ReferenceValueClass {
   case class Container(data: Int)
 }
 
-class ExpressionEncoderSuite extends PlanTest with AnalysisTest {
+class ExpressionEncoderSuite extends SparkFunSuite with PlanTest with AnalysisTest {
   OuterScopes.addOuterScope(this)
 
   implicit def encoder[T : TypeTag]: ExpressionEncoder[T] = ExpressionEncoder()

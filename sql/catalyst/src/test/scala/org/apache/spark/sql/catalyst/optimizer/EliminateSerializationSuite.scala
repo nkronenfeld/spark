@@ -17,8 +17,9 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
-import scala.reflect.runtime.universe.TypeTag
+import org.apache.spark.SparkFunSuite
 
+import scala.reflect.runtime.universe.TypeTag
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
@@ -28,7 +29,7 @@ import org.apache.spark.sql.catalyst.rules.RuleExecutor
 
 case class OtherTuple(_1: Int, _2: Int)
 
-class EliminateSerializationSuite extends PlanTest {
+class EliminateSerializationSuite extends SparkFunSuite with PlanTest {
   private object Optimize extends RuleExecutor[LogicalPlan] {
     val batches =
       Batch("Serialization", FixedPoint(100),

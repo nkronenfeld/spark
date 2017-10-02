@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.dsl.plans._
 import org.apache.spark.sql.catalyst.expressions._
 import org.apache.spark.sql.catalyst.expressions.Literal._
@@ -25,7 +26,7 @@ import org.apache.spark.sql.catalyst.plans.logical._
 import org.apache.spark.sql.catalyst.rules._
 
 
-class OptimizeCodegenSuite extends PlanTest {
+class OptimizeCodegenSuite extends SparkFunSuite with PlanTest {
 
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches = Batch("OptimizeCodegen", Once, OptimizeCodegen) :: Nil

@@ -22,14 +22,13 @@ import java.io.File
 import scala.collection.JavaConverters._
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe.TypeTag
-
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 import org.apache.parquet.format.converter.ParquetMetadataConverter
 import org.apache.parquet.hadoop.{Footer, ParquetFileReader, ParquetFileWriter}
 import org.apache.parquet.hadoop.metadata.{BlockMetaData, FileMetaData, ParquetMetadata}
 import org.apache.parquet.schema.MessageType
-
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.{DataFrame, SaveMode}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SQLTestUtils
@@ -42,7 +41,7 @@ import org.apache.spark.sql.types.StructType
  * convenient to use tuples rather than special case classes when writing test cases/suites.
  * Especially, `Tuple1.apply` can be used to easily wrap a single type/value.
  */
-private[sql] trait ParquetTest extends SQLTestUtils {
+private[sql] trait ParquetTest extends SparkFunSuite with SQLTestUtils {
 
   /**
    * Reads the parquet file at `path`

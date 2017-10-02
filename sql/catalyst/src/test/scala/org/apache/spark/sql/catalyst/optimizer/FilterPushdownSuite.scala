@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.analysis
 import org.apache.spark.sql.catalyst.analysis.EliminateSubqueryAliases
 import org.apache.spark.sql.catalyst.dsl.expressions._
@@ -28,7 +29,7 @@ import org.apache.spark.sql.catalyst.rules._
 import org.apache.spark.sql.types.IntegerType
 import org.apache.spark.unsafe.types.CalendarInterval
 
-class FilterPushdownSuite extends PlanTest {
+class FilterPushdownSuite extends SparkFunSuite with PlanTest {
 
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches =

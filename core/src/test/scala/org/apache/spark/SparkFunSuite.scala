@@ -21,12 +21,13 @@ package org.apache.spark
 import java.io.File
 
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Outcome}
-
 import org.apache.spark.internal.Logging
-import org.apache.spark.util.AccumulatorContext
+import org.apache.spark.util.{AccumulatorContext, UninterruptibleThread}
+
+import scala.util.control.NonFatal
 
 /**
- * Base abstract class for all unit tests in Spark for handling common functionality.
+ * Base abstract class for FunSuite-based unit tests in Spark for handling common functionality.
  */
 abstract class SparkFunSuite
   extends FunSuite
@@ -71,4 +72,59 @@ abstract class SparkFunSuite
     }
   }
 
+  /**
+    * Disable stdout and stderr when running the test. To not output the logs to the console,
+    * ConsoleAppender's `follow` should be set to `true` so that it will honors reassignments of
+    * System.out or System.err. Otherwise, ConsoleAppender will still output to the console even if
+    * we change System.out and System.err.
+    */
+  protected def testQuietly(name: String)(f: => Unit): Unit = {
+    test(name) {
+      quietly {
+        f
+      }
+    }
+  }
+
+  /**
+    * Run a test on a separate `UninterruptibleThread`.
+    */
+  protected def testWithUninterruptibleThread(name: String, quietly: Boolean = false)
+                                             (body: => Unit): Unit = {
+    val timeoutMillis = 10000
+    @transient var ex: Throwable = null
+
+    def runOnThread(): Unit = {
+      val thread = new UninterruptibleThread(s"Testing thread for test $name") {
+        override def run(): Unit = {
+          try {
+            body
+          } catch {
+            case NonFatal(e) =>
+              ex = e
+          }
+        }
+      }
+      thread.setDaemon(true)
+      thread.start()
+      thread.join(timeoutMillis)
+      if (thread.isAlive) {
+        thread.interrupt()
+        // If this interrupt does not work, then this thread is most likely running something that
+        // is not interruptible. There is not much point to wait for the thread to termniate, and
+        // we rather let the JVM terminate the thread on exit.
+        fail(
+          s"Test '$name' running on o.a.s.util.UninterruptibleThread timed out after" +
+            s" $timeoutMillis ms")
+      } else if (ex != null) {
+        throw ex
+      }
+    }
+
+    if (quietly) {
+      testQuietly(name) { runOnThread() }
+    } else {
+      test(name) { runOnThread() }
+    }
+  }
 }

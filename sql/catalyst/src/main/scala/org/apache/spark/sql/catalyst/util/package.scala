@@ -26,26 +26,6 @@ import org.apache.spark.unsafe.types.UTF8String
 import org.apache.spark.util.Utils
 
 package object util {
-
-  /** Silences output to stderr or stdout for the duration of f */
-  def quietly[A](f: => A): A = {
-    val origErr = System.err
-    val origOut = System.out
-    try {
-      System.setErr(new PrintStream(new OutputStream {
-        def write(b: Int) = {}
-      }))
-      System.setOut(new PrintStream(new OutputStream {
-        def write(b: Int) = {}
-      }))
-
-      f
-    } finally {
-      System.setErr(origErr)
-      System.setOut(origOut)
-    }
-  }
-
   def fileToString(file: File, encoding: String = "UTF-8"): String = {
     val inStream = new FileInputStream(file)
     val outStream = new ByteArrayOutputStream

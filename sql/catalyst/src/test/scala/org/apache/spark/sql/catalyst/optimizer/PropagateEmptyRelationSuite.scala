@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.catalyst.{CatalystTypeConverters, InternalRow}
 import org.apache.spark.sql.catalyst.dsl.expressions._
@@ -26,7 +27,7 @@ import org.apache.spark.sql.catalyst.plans.logical.{LocalRelation, LogicalPlan}
 import org.apache.spark.sql.catalyst.rules.RuleExecutor
 import org.apache.spark.sql.types.StructType
 
-class PropagateEmptyRelationSuite extends PlanTest {
+class PropagateEmptyRelationSuite extends SparkFunSuite with PlanTest {
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches =
       Batch("PropagateEmptyRelation", Once,

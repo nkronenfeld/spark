@@ -25,13 +25,10 @@ import java.util.{Locale, UUID}
 import scala.concurrent.duration._
 import scala.language.implicitConversions
 import scala.util.control.NonFatal
-
 import org.apache.hadoop.fs.Path
-import org.scalatest.BeforeAndAfterAll
+import org.scalatest.{BeforeAndAfterAll, TestSuite}
 import org.scalatest.concurrent.Eventually
-
-import org.apache.spark.SparkFunSuite
-import org.apache.spark.sql._
+import org.apache.spark.sql.{DataFrame, Dataset, Row, SQLContext, SQLImplicits, SparkSession}
 import org.apache.spark.sql.catalyst.FunctionIdentifier
 import org.apache.spark.sql.catalyst.analysis.NoSuchTableException
 import org.apache.spark.sql.catalyst.catalog.SessionCatalog.DEFAULT_DATABASE
@@ -39,7 +36,6 @@ import org.apache.spark.sql.catalyst.plans.PlanTest
 import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan
 import org.apache.spark.sql.catalyst.util._
 import org.apache.spark.sql.execution.FilterExec
-import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.util.{UninterruptibleThread, Utils}
 
 /**
@@ -53,14 +49,14 @@ import org.apache.spark.util.{UninterruptibleThread, Utils}
  * prone to leaving multiple overlapping [[org.apache.spark.SparkContext]]s in the same JVM.
  */
 private[sql] trait SQLTestUtils
-  extends SparkFunSuite with Eventually
+  extends TestSuite with Eventually
   with BeforeAndAfterAll
   with SQLTestData
   with PlanTest { self =>
 
   protected def sparkContext = spark.sparkContext
 
-  // Whether to materialize all test data before the first test is run
+  // Whether to materialize all tegit@github.com:nkronenfeld/spark.gitst data before the first test is run
   private var loadTestDataBeforeTests = false
 
   // Shorthand for running a query using our SQLContext
@@ -295,62 +291,6 @@ private[sql] trait SQLTestUtils
    */
   protected implicit def logicalPlanToSparkQuery(plan: LogicalPlan): DataFrame = {
     Dataset.ofRows(spark, plan)
-  }
-
-  /**
-   * Disable stdout and stderr when running the test. To not output the logs to the console,
-   * ConsoleAppender's `follow` should be set to `true` so that it will honors reassignments of
-   * System.out or System.err. Otherwise, ConsoleAppender will still output to the console even if
-   * we change System.out and System.err.
-   */
-  protected def testQuietly(name: String)(f: => Unit): Unit = {
-    test(name) {
-      quietly {
-        f
-      }
-    }
-  }
-
-  /**
-   * Run a test on a separate `UninterruptibleThread`.
-   */
-  protected def testWithUninterruptibleThread(name: String, quietly: Boolean = false)
-    (body: => Unit): Unit = {
-    val timeoutMillis = 10000
-    @transient var ex: Throwable = null
-
-    def runOnThread(): Unit = {
-      val thread = new UninterruptibleThread(s"Testing thread for test $name") {
-        override def run(): Unit = {
-          try {
-            body
-          } catch {
-            case NonFatal(e) =>
-              ex = e
-          }
-        }
-      }
-      thread.setDaemon(true)
-      thread.start()
-      thread.join(timeoutMillis)
-      if (thread.isAlive) {
-        thread.interrupt()
-        // If this interrupt does not work, then this thread is most likely running something that
-        // is not interruptible. There is not much point to wait for the thread to termniate, and
-        // we rather let the JVM terminate the thread on exit.
-        fail(
-          s"Test '$name' running on o.a.s.util.UninterruptibleThread timed out after" +
-            s" $timeoutMillis ms")
-      } else if (ex != null) {
-        throw ex
-      }
-    }
-
-    if (quietly) {
-      testQuietly(name) { runOnThread() }
-    } else {
-      test(name) { runOnThread() }
-    }
   }
 
   /**

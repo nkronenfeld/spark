@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.dsl._
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
@@ -26,7 +27,7 @@ import org.apache.spark.sql.catalyst.plans.logical._
 import org.apache.spark.sql.catalyst.rules.RuleExecutor
 import org.apache.spark.sql.types._
 
-class SimplifyCastsSuite extends PlanTest {
+class SimplifyCastsSuite extends SparkFunSuite with PlanTest {
 
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches = Batch("SimplifyCasts", FixedPoint(50), SimplifyCasts) :: Nil

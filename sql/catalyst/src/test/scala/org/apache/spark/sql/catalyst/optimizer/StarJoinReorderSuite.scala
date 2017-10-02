@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
 import org.apache.spark.sql.catalyst.expressions.{Attribute, AttributeMap}
@@ -26,7 +27,7 @@ import org.apache.spark.sql.catalyst.rules.RuleExecutor
 import org.apache.spark.sql.catalyst.statsEstimation.{StatsEstimationTestBase, StatsTestPlan}
 import org.apache.spark.sql.internal.SQLConf._
 
-class StarJoinReorderSuite extends PlanTest with StatsEstimationTestBase {
+class StarJoinReorderSuite extends SparkFunSuite with PlanTest with StatsEstimationTestBase {
 
   var originalConfStarSchemaDetection = false
   var originalConfCBOEnabled = true

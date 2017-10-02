@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
 import org.apache.spark.sql.catalyst.expressions.{Attribute, AttributeMap}
@@ -27,7 +28,7 @@ import org.apache.spark.sql.catalyst.statsEstimation.{StatsEstimationTestBase, S
 import org.apache.spark.sql.internal.SQLConf.{CBO_ENABLED, JOIN_REORDER_ENABLED}
 
 
-class JoinReorderSuite extends PlanTest with StatsEstimationTestBase {
+class JoinReorderSuite extends SparkFunSuite with PlanTest with StatsEstimationTestBase {
 
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches =

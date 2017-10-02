@@ -20,8 +20,9 @@ package org.apache.spark.sql.execution.command
 import java.net.URI
 import java.util.Locale
 
-import scala.reflect.{classTag, ClassTag}
+import org.apache.spark.SparkFunSuite
 
+import scala.reflect.{ClassTag, classTag}
 import org.apache.spark.sql.{AnalysisException, SaveMode}
 import org.apache.spark.sql.catalyst.TableIdentifier
 import org.apache.spark.sql.catalyst.analysis.UnresolvedAttribute
@@ -41,7 +42,7 @@ import org.apache.spark.sql.test.SharedSQLContext
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 
 
-class DDLParserSuite extends PlanTest with SharedSQLContext {
+class DDLParserSuite extends SparkFunSuite with PlanTest with SharedSQLContext {
   private lazy val parser = new SparkSqlParser(new SQLConf)
 
   private def assertUnsupported(sql: String, containsThesePhrases: Seq[String] = Seq()): Unit = {

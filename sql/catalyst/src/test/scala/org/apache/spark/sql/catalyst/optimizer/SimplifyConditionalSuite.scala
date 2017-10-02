@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.dsl.plans._
 import org.apache.spark.sql.catalyst.expressions._
 import org.apache.spark.sql.catalyst.expressions.Literal.{FalseLiteral, TrueLiteral}
@@ -26,7 +27,7 @@ import org.apache.spark.sql.catalyst.rules._
 import org.apache.spark.sql.types.{IntegerType, NullType}
 
 
-class SimplifyConditionalSuite extends PlanTest with PredicateHelper {
+class SimplifyConditionalSuite extends SparkFunSuite with PlanTest with PredicateHelper {
 
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches = Batch("SimplifyConditionals", FixedPoint(50), SimplifyConditionals) :: Nil

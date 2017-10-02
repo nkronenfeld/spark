@@ -17,8 +17,9 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
-import scala.reflect.runtime.universe.TypeTag
+import org.apache.spark.SparkFunSuite
 
+import scala.reflect.runtime.universe.TypeTag
 import org.apache.spark.sql.catalyst.analysis
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
@@ -29,7 +30,7 @@ import org.apache.spark.sql.catalyst.plans.logical._
 import org.apache.spark.sql.catalyst.rules.RuleExecutor
 import org.apache.spark.sql.types.StringType
 
-class ColumnPruningSuite extends PlanTest {
+class ColumnPruningSuite extends SparkFunSuite with PlanTest {
 
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches = Batch("Column pruning", FixedPoint(100),

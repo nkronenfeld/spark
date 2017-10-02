@@ -18,6 +18,7 @@
 package org.apache
 
 import java.util.Properties
+import java.io._
 
 /**
  * Core Spark functionality. [[org.apache.spark.SparkContext]] serves as the main entry point to
@@ -94,5 +95,25 @@ package object spark {
   val SPARK_BUILD_USER = SparkBuildInfo.spark_build_user
   val SPARK_REPO_URL = SparkBuildInfo.spark_repo_url
   val SPARK_BUILD_DATE = SparkBuildInfo.spark_build_date
+
+
+  /** Silences output to stderr or stdout for the duration of f */
+  def quietly[A](f: => A): A = {
+    val origErr = System.err
+    val origOut = System.out
+    try {
+      System.setErr(new PrintStream(new OutputStream {
+        def write(b: Int) = {}
+      }))
+      System.setOut(new PrintStream(new OutputStream {
+        def write(b: Int) = {}
+      }))
+
+      f
+    } finally {
+      System.setErr(origErr)
+      System.setOut(origOut)
+    }
+  }
 }
 

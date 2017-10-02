@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
 import org.apache.spark.sql.catalyst.expressions._
@@ -30,7 +31,7 @@ import org.apache.spark.sql.types._
 * i.e. {{{create_named_struct(square, `x` * `x`).square}}} can be simplified to {{{`x` * `x`}}}.
 * sam applies to create_array and create_map
 */
-class ComplexTypesSuite extends PlanTest{
+class ComplexTypesSuite extends SparkFunSuite with PlanTest{
 
   object Optimizer extends RuleExecutor[LogicalPlan] {
     val batches =

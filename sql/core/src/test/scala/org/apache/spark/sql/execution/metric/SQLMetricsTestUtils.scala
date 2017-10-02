@@ -19,8 +19,9 @@ package org.apache.spark.sql.execution.metric
 
 import java.io.File
 
-import scala.collection.mutable.HashMap
+import org.apache.spark.internal.Logging
 
+import scala.collection.mutable.HashMap
 import org.apache.spark.scheduler.{SparkListener, SparkListenerTaskEnd}
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.catalyst.TableIdentifier
@@ -30,7 +31,7 @@ import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.util.Utils
 
 
-trait SQLMetricsTestUtils extends SQLTestUtils {
+trait SQLMetricsTestUtils extends SQLTestUtils with Logging {
 
   import testImplicits._
 

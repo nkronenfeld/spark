@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.analysis.EliminateSubqueryAliases
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
@@ -28,7 +29,7 @@ import org.apache.spark.sql.catalyst.rules.RuleExecutor
 /**
  * Unit tests for constant propagation in expressions.
  */
-class ConstantPropagationSuite extends PlanTest {
+class ConstantPropagationSuite extends SparkFunSuite with PlanTest {
 
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches =

@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.analysis.EliminateSubqueryAliases
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
@@ -25,7 +26,7 @@ import org.apache.spark.sql.catalyst.plans.{FullOuter, LeftOuter, PlanTest, Righ
 import org.apache.spark.sql.catalyst.plans.logical._
 import org.apache.spark.sql.catalyst.rules._
 
-class LimitPushdownSuite extends PlanTest {
+class LimitPushdownSuite extends SparkFunSuite with PlanTest {
 
   private object Optimize extends RuleExecutor[LogicalPlan] {
     val batches =

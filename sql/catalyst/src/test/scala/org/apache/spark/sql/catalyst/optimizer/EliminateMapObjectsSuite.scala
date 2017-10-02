@@ -17,6 +17,7 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
@@ -27,7 +28,7 @@ import org.apache.spark.sql.catalyst.plans.logical.{DeserializeToObject, LocalRe
 import org.apache.spark.sql.catalyst.rules.RuleExecutor
 import org.apache.spark.sql.types._
 
-class EliminateMapObjectsSuite extends PlanTest {
+class EliminateMapObjectsSuite extends SparkFunSuite with PlanTest {
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches = {
       Batch("EliminateMapObjects", FixedPoint(50),

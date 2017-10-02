@@ -20,13 +20,14 @@ package org.apache.spark.sql.catalyst.analysis
 import java.net.URI
 import java.util.Locale
 
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.AnalysisException
 import org.apache.spark.sql.catalyst.catalog.{CatalogDatabase, InMemoryCatalog, SessionCatalog}
 import org.apache.spark.sql.catalyst.plans.PlanTest
 import org.apache.spark.sql.catalyst.plans.logical._
 import org.apache.spark.sql.internal.SQLConf
 
-trait AnalysisTest extends PlanTest {
+trait AnalysisTest extends SparkFunSuite with PlanTest {
 
   protected val caseSensitiveAnalyzer = makeAnalyzer(caseSensitive = true)
   protected val caseInsensitiveAnalyzer = makeAnalyzer(caseSensitive = false)
