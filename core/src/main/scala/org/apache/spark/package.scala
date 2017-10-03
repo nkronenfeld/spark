@@ -17,8 +17,8 @@
 
 package org.apache
 
-import java.util.Properties
 import java.io._
+import java.util.Properties
 
 /**
  * Core Spark functionality. [[org.apache.spark.SparkContext]] serves as the main entry point to
