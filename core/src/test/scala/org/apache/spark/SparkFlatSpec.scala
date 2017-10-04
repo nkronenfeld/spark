@@ -16,10 +16,10 @@
  */
 package org.apache.spark
 
-import org.scalatest.FunSpec
+import org.scalatest.FlatSpec
 
 /**
- * Base abstract class for FunSpec-based unit tests in Spark for handling common functionality.
+ * Base abstract class for FlatSpec-based unit tests in Spark for handling common functionality.
  */
-abstract class SparkFunSpec extends FunSpec with SparkTestMixin {
+abstract class SparkFlatSpec extends FlatSpec with SparkTestMixin {
 }

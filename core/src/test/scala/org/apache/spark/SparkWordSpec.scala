@@ -16,10 +16,10 @@
  */
 package org.apache.spark
 
-import org.scalatest.FunSpec
+import org.scalatest.WordSpec
 
 /**
- * Base abstract class for FunSpec-based unit tests in Spark for handling common functionality.
+ * Base abstract class for WordSpec-based unit tests in Spark for handling common functionality.
  */
-abstract class SparkFunSpec extends FunSpec with SparkTestMixin {
+abstract class SparkWordSpec extends WordSpec with SparkTestMixin {
 }
