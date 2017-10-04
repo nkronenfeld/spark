@@ -21,10 +21,10 @@ import java.math.BigInteger
 import java.sql.{Date, Timestamp}
 import java.util.Arrays
 
-import org.apache.spark.SparkFunSuite
-
 import scala.collection.mutable.ArrayBuffer
 import scala.reflect.runtime.universe.TypeTag
+
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.{Encoder, Encoders}
 import org.apache.spark.sql.catalyst.{OptionalData, PrimitiveData}
 import org.apache.spark.sql.catalyst.analysis.AnalysisTest

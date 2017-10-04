@@ -20,9 +20,9 @@ package org.apache.spark.sql.execution.command
 import java.net.URI
 import java.util.Locale
 
-import org.apache.spark.SparkFunSuite
+import scala.reflect.{classTag, ClassTag}
 
-import scala.reflect.{ClassTag, classTag}
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.{AnalysisException, SaveMode}
 import org.apache.spark.sql.catalyst.TableIdentifier
 import org.apache.spark.sql.catalyst.analysis.UnresolvedAttribute

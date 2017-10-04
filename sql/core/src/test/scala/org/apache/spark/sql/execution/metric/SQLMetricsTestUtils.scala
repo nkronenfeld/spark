@@ -19,10 +19,10 @@ package org.apache.spark.sql.execution.metric
 
 import java.io.File
 
-import org.apache.spark.internal.Logging
-
 import scala.collection.mutable.HashMap
+
 import org.apache.spark.SparkFunSuite
+import org.apache.spark.internal.Logging
 import org.apache.spark.scheduler.{SparkListener, SparkListenerTaskEnd}
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.catalyst.TableIdentifier

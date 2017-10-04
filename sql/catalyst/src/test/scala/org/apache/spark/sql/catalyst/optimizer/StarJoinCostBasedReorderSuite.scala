@@ -28,7 +28,10 @@ import org.apache.spark.sql.catalyst.statsEstimation.{StatsEstimationTestBase, S
 import org.apache.spark.sql.internal.SQLConf._
 
 
-class StarJoinCostBasedReorderSuite extends SparkFunSuite with PlanTest with StatsEstimationTestBase {
+class StarJoinCostBasedReorderSuite
+  extends SparkFunSuite
+  with PlanTest
+  with StatsEstimationTestBase {
 
   object Optimize extends RuleExecutor[LogicalPlan] {
     val batches =

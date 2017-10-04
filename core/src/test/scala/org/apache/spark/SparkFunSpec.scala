@@ -18,13 +18,14 @@ package org.apache.spark
 
 import java.io.File
 
-import org.apache.spark.internal.Logging
-import org.apache.spark.util.AccumulatorContext
 import org.scalatest.{BeforeAndAfterAll, FunSpec, Outcome}
 
+import org.apache.spark.internal.Logging
+import org.apache.spark.util.AccumulatorContext
+
 /**
-  * Base abstract class for FunSpec-based unit tests in Spark for handling common functionality.
-  */
+ * Base abstract class for FunSpec-based unit tests in Spark for handling common functionality.
+ */
 abstract class SparkFunSpec
   extends FunSpec
   with BeforeAndAfterAll
@@ -48,12 +49,12 @@ abstract class SparkFunSpec
   }
 
   /**
-    * Log the suite name and the test name before and after each test.
-    *
-    * Subclasses should never override this method. If they wish to run
-    * custom code before and after each test, they should mix in the
-    * {{org.scalatest.BeforeAndAfter}} trait instead.
-    */
+   * Log the suite name and the test name before and after each test.
+   *
+   * Subclasses should never override this method. If they wish to run
+   * custom code before and after each test, they should mix in the
+   * {{org.scalatest.BeforeAndAfter}} trait instead.
+   */
   final protected override def withFixture(test: NoArgTest): Outcome = {
     val testName = test.text
     val suiteName = this.getClass.getName

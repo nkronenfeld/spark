@@ -18,10 +18,12 @@
 package org.apache.spark.sql.test
 
 import scala.concurrent.duration._
+
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.Eventually
+
 import org.apache.spark.{DebugFilesystem, SparkConf, SparkFunSuite}
-import org.apache.spark.sql.{SQLContext, SparkSession}
+import org.apache.spark.sql.{SparkSession, SQLContext}
 import org.apache.spark.sql.internal.SQLConf
 
 /**

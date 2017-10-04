@@ -17,9 +17,9 @@
 
 package org.apache.spark.sql.catalyst.encoders
 
-import org.apache.spark.SparkFunSuite
-
 import scala.reflect.runtime.universe.TypeTag
+
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.AnalysisException
 import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.dsl.expressions._

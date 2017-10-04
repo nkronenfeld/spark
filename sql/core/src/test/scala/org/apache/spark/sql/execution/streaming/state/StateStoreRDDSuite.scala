@@ -25,8 +25,8 @@ import scala.util.Random
 
 import org.scalatest.{BeforeAndAfter, BeforeAndAfterAll}
 
-import org.apache.spark.quietly
 import org.apache.spark.{SparkConf, SparkContext, SparkFunSuite}
+import org.apache.spark.quietly
 import org.apache.spark.rdd.RDD
 import org.apache.spark.scheduler.ExecutorCacheTaskLocation
 import org.apache.spark.sql.LocalSparkSession._

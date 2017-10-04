@@ -17,8 +17,9 @@
 
 package org.apache.spark.sql.catalyst.optimizer
 
-import org.apache.spark.SparkFunSuite
 import org.scalatest.Matchers._
+
+import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.AnalysisException
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.dsl.plans._

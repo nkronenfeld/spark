@@ -73,11 +73,11 @@ abstract class SparkFunSuite
   }
 
   /**
-    * Disable stdout and stderr when running the test. To not output the logs to the console,
-    * ConsoleAppender's `follow` should be set to `true` so that it will honors reassignments of
-    * System.out or System.err. Otherwise, ConsoleAppender will still output to the console even if
-    * we change System.out and System.err.
-    */
+   * Disable stdout and stderr when running the test. To not output the logs to the console,
+   * ConsoleAppender's `follow` should be set to `true` so that it will honors reassignments of
+   * System.out or System.err. Otherwise, ConsoleAppender will still output to the console even if
+   * we change System.out and System.err.
+   */
   protected def testQuietly(name: String)(f: => Unit): Unit = {
     test(name) {
       quietly {
@@ -87,8 +87,8 @@ abstract class SparkFunSuite
   }
 
   /**
-    * Run a test on a separate `UninterruptibleThread`.
-    */
+   * Run a test on a separate `UninterruptibleThread`.
+   */
   protected def testWithUninterruptibleThread(name: String, quietly: Boolean = false)
                                              (body: => Unit): Unit = {
     val timeoutMillis = 10000

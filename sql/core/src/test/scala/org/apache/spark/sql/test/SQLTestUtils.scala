@@ -25,10 +25,12 @@ import java.util.{Locale, UUID}
 import scala.concurrent.duration._
 import scala.language.implicitConversions
 import scala.util.control.NonFatal
+
 import org.apache.hadoop.fs.Path
 import org.scalatest.{BeforeAndAfterAll, TestSuite}
 import org.scalatest.concurrent.Eventually
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SQLContext, SQLImplicits, SparkSession}
+
+import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession, SQLContext, SQLImplicits}
 import org.apache.spark.sql.catalyst.FunctionIdentifier
 import org.apache.spark.sql.catalyst.analysis.NoSuchTableException
 import org.apache.spark.sql.catalyst.catalog.SessionCatalog.DEFAULT_DATABASE
@@ -56,7 +58,8 @@ private[sql] trait SQLTestUtils
 
   protected def sparkContext = spark.sparkContext
 
-  // Whether to materialize all tegit@github.com:nkronenfeld/spark.gitst data before the first test is run
+  // Whether to materialize all tegit@github.com:nkronenfeld/spark.gitst data before the
+  // first test is run
   private var loadTestDataBeforeTests = false
 
   // Shorthand for running a query using our SQLContext
