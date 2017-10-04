@@ -47,7 +47,10 @@ trait SharedSQLGenericContext
    * By default, the underlying [[org.apache.spark.SparkContext]] will be run in local
    * mode with the default test configurations.
    */
-  private var _spark: TestSparkSession = null
+  private lazy val _spark: TestSparkSession = {
+    SparkSession.sqlListener.set(null)
+    createSparkSession
+  }
 
   /**
    * The [[TestSparkSession]] to use for all tests in this suite.
@@ -64,18 +67,6 @@ trait SharedSQLGenericContext
   }
 
   /**
-   * Initialize the [[TestSparkSession]].
-   */
-  protected override def beforeAll(): Unit = {
-    SparkSession.sqlListener.set(null)
-    if (_spark == null) {
-      _spark = createSparkSession
-    }
-    // Ensure we have initialized the context before calling parent code
-    super.beforeAll()
-  }
-
-  /**
    * Stop the underlying [[org.apache.spark.SparkContext]], if any.
    */
   protected override def afterAll(): Unit = {
@@ -83,7 +74,6 @@ trait SharedSQLGenericContext
     if (_spark != null) {
       _spark.sessionState.catalog.reset()
       _spark.stop()
-      _spark = null
     }
   }
 
